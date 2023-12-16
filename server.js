@@ -1,6 +1,6 @@
-import Express from "express";
-import mongoose from "mongoose";
-
+const Express = require("express");
+//import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const note = new mongoose.Schema({
   title: {
     type: String,
@@ -77,6 +77,6 @@ app.delete("/notes/:id", async (req, res) => {
 });
 
 // Start the server
-app.listen(3001, () => {
-  console.log("Server started on port 3001");
+app.listen(3000, () => {
+  console.log("Server started on port 3000");
 });
