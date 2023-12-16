@@ -12,7 +12,7 @@ const buttonStyle = {
   height: "36px",
   boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
   cursor: "pointer",
-  outline: "none"
+  outline: "none",
 };
 
 const noteStyle = {
@@ -22,7 +22,7 @@ const noteStyle = {
   outline: "none",
   fontSize: "1.2em",
   fontFamily: "inherit",
-  resize: "none"
+  resize: "none",
 };
 
 const noteFormat = {
@@ -32,13 +32,13 @@ const noteFormat = {
   background: "#fff",
   padding: "15px",
   borderRadius: "7px",
-  boxShadow: "0 1px 5px rgb(138, 137, 137)"
+  boxShadow: "0 1px 5px rgb(138, 137, 137)",
 };
 
 function CreateArea(props) {
   const [note, setNote] = useState({
     title: "",
-    content: ""
+    content: "",
   });
 
   function handleChange(event) {
@@ -47,20 +47,36 @@ function CreateArea(props) {
     setNote((prevNote) => {
       return {
         ...prevNote,
-        [name]: value
+        [name]: value,
       };
     });
   }
 
   function submitNote(event) {
-    props.onAdd(note);
-    setNote({
-      title: "",
-      content: ""
-    });
+    fetch(
+      "mongodb+srv:dimmed82:dimmed82@cluster0.bquhibd.mongodb.net/?retryWrites=true&w=majority",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(note),
+      },
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        props.onAdd(data);
+        setNote({
+          title: "",
+          content: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error adding note:", error);
+      });
+
     event.preventDefault();
   }
-
   return (
     <div>
       <form style={noteFormat}>
