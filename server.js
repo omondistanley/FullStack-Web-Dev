@@ -1,7 +1,8 @@
 const Express = require("express");
-//import mongoose from "mongoose";
 const mongoose = require("mongoose");
-const note = new mongoose.Schema({
+const cors = require("cors");
+
+const NoteSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -12,12 +13,19 @@ const note = new mongoose.Schema({
   },
 });
 
-const mongoString =
-  "mongodb+srv://dimmed82:dimmed82@cluster0.bquhibd.mongodb.net/?retryWrites=true&w=majority";
 const app = Express();
+const Note = mongoose.model("Note", NoteSchema);
+app.use(cors());
 
-mongoose.connect(mongoString);
+const mongoString =
+  "mongodb+srv://dimmed82:dimmed82@notes-app.u33j0lc.mongodb.net/?retryWrites=true&w=majority";
 
+//"mongodb+srv://dimcked94:Dimmed82.@final-project.jqdjec8.mongodb.net/?retryWrites=true&w=majority";
+mongoose.set("debug", true);
+//mongoose.set("strictQuery", true);
+const conn = mongoose.connect(mongoString);
+
+console.log("Connected to MongoDB: ${conn.connection.host}");
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).send("Internal server error");
@@ -77,6 +85,6 @@ app.delete("/notes/:id", async (req, res) => {
 });
 
 // Start the server
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+app.listen(3020, () => {
+  console.log("Server started on port 3020");
 });
