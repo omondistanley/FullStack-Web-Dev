@@ -54,7 +54,8 @@ function CreateArea(props) {
 
   function submitNote(event) {
     fetch(
-      "mongodb+srv:dimmed82:dimmed82@cluster0.bquhibd.mongodb.net/?retryWrites=true&w=majority",
+      "http://localhost:3010/notes",
+      //"mongodb+srv:dimmed82:dimmed82@cluster0.bquhibd.mongodb.net/?retryWrites=true&w=majority",
       {
         method: "POST",
         headers: {
