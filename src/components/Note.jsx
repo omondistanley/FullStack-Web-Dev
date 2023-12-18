@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 const buttonStyle = {
   position: "relative",
   float: "right",
@@ -10,11 +11,12 @@ const buttonStyle = {
   height: "36px",
   cursor: "pointer",
   outline: "none",
-};
+}
 
 function Note(props) {
-  const [content, setContent] = useState("props.content");
-
+  //const [content, setContent] = useState(props.content);
+  const [content, setContent] = useState(props.content);
+  
   function handleContentChange(event) {
     setContent(event.target.value);
   }
